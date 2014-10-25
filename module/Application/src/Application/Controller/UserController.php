@@ -1,39 +1,31 @@
 <?php
 
-namespace Content\Controller;
+namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class ArticleController extends AbstractActionController
+class UserController extends AbstractActionController
 {
-    public function viewAction()
+    public function addAction()
     {
-
-        //  メインとなるビューモデルを作成
-        $view = new ViewModel();
-
-        // テンプレートを設定
-        $view->setTemplate('content/article/view');
-
-        //  サブとなるビューモデルを作成
-        $articleView = new ViewModel(array('article' => $article));
-        $articleView->setTemplate('content/article');
-
-        //  サブとなるビューモデルを作成
-        $primarySidebarView = new ViewModel();
-        $primarySidebarView->setTemplate('content/main-sidebar');
-
-        //  サブとなるビューモデルを作成
-        $secondarySidebarView = new ViewModel();
-        $secondarySidebarView->setTemplate('content/secondary-sidebar');
-
-        // メインとなるビューに子のビューを追加していく
-        $view->addChild($articleView, 'article')
-             ->addChild($primarySidebarView, 'sidebar_primary')
-             ->addChild($secondarySidebarView, 'sidebar_secondary');
-
-        return $view;
+        // ビューへ渡す値を配列にて定義
+        $values = array(
+            'key1' => 'value1',
+            'key2' => 'value2',
+        );
+        $view = new ViewModel($values);
+        
+        // 使用するレイアウトを指定
+        $this->layout('layout/layout.phtml');
+        
+        // 使用するビューを指定
+        $view->setTemplate('/application/index/index.phtml');
+        
+        // レイアウト機能を無効
+        $view->setTerminal(true);
+        
+        // レスポンスを返却してビューの出力を無効
+        return $this->getResponse();
     }
 }
-

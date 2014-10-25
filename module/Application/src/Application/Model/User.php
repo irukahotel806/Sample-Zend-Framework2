@@ -7,7 +7,7 @@ class User
     public $id;
     public $name;
     public $email;
-}
+
     public function exchangeArray($data)
     {
         $this->id             = (isset($data['id'])) ? $data['id'] : 0;
@@ -15,4 +15,5 @@ class User
         $this->email          = (isset($data['email'])) ? $data['email'] : '';
     }
 }
+
 
